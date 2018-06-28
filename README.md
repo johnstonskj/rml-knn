@@ -1,2 +1,3 @@
-# rml-knn
-K-Nearest Neighbor implementation in Racket.
+# Racket Machine Learning - K-Nearest Neighbor
+
+TBD
