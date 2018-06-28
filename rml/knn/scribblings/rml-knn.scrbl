@@ -1,4 +1,5 @@
 #lang scribble/manual
+
 @require[@for-label[rml/knn
                     racket/base]]
 
