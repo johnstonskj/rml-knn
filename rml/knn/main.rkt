@@ -37,8 +37,8 @@
 
 ;; ---------- Requirements
 
-(require "notimplemented.rkt"
-         "data.rkt"
+(require rml/notimplemented
+         rml/data
          math/array)
 
 ;; ---------- Implementation

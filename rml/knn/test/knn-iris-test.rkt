@@ -5,7 +5,7 @@
 ;; ~ Simon Johnston 2018.
 ;;
 
-(require "../knn-lib/data.rkt")
+(require rml/data)
 
 (define dataset
   (load-data-set "iris_training_data2.csv"
@@ -26,7 +26,7 @@
 (displayln (classifier-product dataset))
 (newline)
 
-(require "../knn-lib/knn.rkt")
+(require rml/knn)
 
 (define iris (hash "sepal-length" 6.3 "sepal-width" 2.5 "petal-length" 4.9 "petal-width" 1.5 "classification" "Iris-versicolor"))
 

@@ -5,7 +5,7 @@
 ;; ~ Simon Johnston 2018.
 ;;
 
-(require "../knn-lib/data.rkt")
+(require rml/data)
 (require math/statistics)
 
 (define dataset
@@ -23,6 +23,6 @@
 (write-snapshot dataset (current-output-port))
 (newline)
 
-(require "../knn-lib/knn.rkt")
+(require rml/knn)
 
 (classify (hash "height" 199 "class" "m") dataset 5)
