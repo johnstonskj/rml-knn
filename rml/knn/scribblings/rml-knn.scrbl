@@ -6,6 +6,10 @@
 @title{rml-knn}
 @author{simonjo}
 
-@defmodule[rml/knn]
+@defmodule[rml/knn/classify]
+
+Package Description Here
+
+@defmodule[rml/knn/train]
 
 Package Description Here
