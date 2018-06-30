@@ -26,7 +26,7 @@
 (displayln (classifier-product dataset))
 (newline)
 
-(require rml/knn)
+(require rml/results "../classify.rkt")
 
 (define iris (hash "sepal-length" 6.3 "sepal-width" 2.5 "petal-length" 4.9 "petal-width" 1.5 "classification" "Iris-versicolor"))
 

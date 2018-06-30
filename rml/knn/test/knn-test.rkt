@@ -23,6 +23,6 @@
 (write-snapshot dataset (current-output-port))
 (newline)
 
-(require rml/knn)
+(require "../classify.rkt")
 
 (classify (hash "height" 199 "class" "m") dataset 5)
