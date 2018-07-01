@@ -6,7 +6,6 @@
 [![raco pkg install rml-core](https://img.shields.io/badge/raco%20pkg%20install-rml--knn-blue.svg)](http://pkgs.racket-lang.org/package/rml-knn)
 [![Documentation](https://img.shields.io/badge/raco%20docs-rml--knn-blue.svg)](http://docs.racket-lang.org/rml-knn/index.html)
 [![GitHub stars](https://img.shields.io/github/stars/johnstonskj/rml-core.svg)](https://github.com/johnstonskj/rml-core/stargazers)
-
 ![MIT License](https://img.shields.io/badge/license-MIT-118811.svg)
 
 This module implements a *K-NN* approach for the Racket Machine Learning
