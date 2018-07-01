@@ -9,9 +9,13 @@
 ![MIT License](https://img.shields.io/badge/license-MIT-118811.svg)
 
 This module implements a *K-NN* approach for the Racket Machine Learning
-package set.
+package set. This provides a relatively simple classification approach by
+determining the Euclidean distance between an individual and a set of pre-
+classified training data. Training is used to determine the veracity of the
+chosen features to correctly classify individuals by building a *confusion
+matrix* from classifying a set of individuals.
 
-Based on the [rml-core](https://github.com/johnstonskj/rml-core) package.
+Relies on the [rml-core](https://github.com/johnstonskj/rml-core) package.
 
 # Modules
 
@@ -19,5 +23,21 @@ Based on the [rml-core](https://github.com/johnstonskj/rml-core) package.
 * `train` - Support for training a data set.
 
 # Examples
+
+```scheme
+(require rml/results "../classify.rkt")
+
+(define iris (hash "sepal-length" 6.3
+                   "sepal-width" 2.5
+                   "petal-length" 4.9
+                   "petal-width" 1.5
+                   "classification" "Iris-versicolor"))
+
+(define C (make-result-matrix dataset))
+
+(record-result C
+  (hash-ref iris "classification")
+  (first (classify iris dataset 5)))
+```
 
 TBD
