@@ -1,6 +1,6 @@
 PACKAGENAME=rml-knn
-COLLECTS=rml/knn
-SCRBL=rml/knn/scribblings/rml-knn.scrbl
+COLLECTS=rml-knn
+SCRBL=rml-knn/scribblings/rml-knn.scrbl
 
 all: setup
 
@@ -23,7 +23,7 @@ test:
 htmldocs: $(SCRBL)
 	raco scribble \
 		--html \
-		--dest rml/doc \
+		--dest rml-knn/doc \
 		--dest-name index \
 		++main-xref-in \
 		--redirect-main http://docs.racket-lang.org/ \

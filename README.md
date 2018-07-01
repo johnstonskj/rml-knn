@@ -2,14 +2,16 @@
 
 ![MIT License](https://img.shields.io/badge/license-MIT-118811.svg)
 
-TBD
+This module implements a *K-NN* approach for the Racket Machine Learning
+package set.
 
 Based on the [rml-core](https://github.com/johnstonskj/rml-core) package.
 
 # Modules
 
-TBD
+* `classify` - TBD
+* `train` - TBD
 
-#Examples
+# Examples
 
 TBD
