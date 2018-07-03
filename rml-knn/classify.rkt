@@ -1,6 +1,6 @@
 #lang racket
 ;;
-;; Racket Machine Learning - K-NN.
+;; Racket Machine Learning - k-NN.
 ;;
 ;; Based upon the article:
 ;;   https://spin.atomicobject.com/2013/05/06/k-nearest-neighbor-racket/
@@ -15,15 +15,15 @@
  (contract-out
 
   [nearest-k
-   (-> hash? data-set? exact-positive-integer? list?)]
+   (-> individual? data-set? exact-positive-integer? list?)]
 
   [classify
-   (-> hash? data-set? exact-positive-integer? list?)]))
+   (-> individual? data-set? exact-positive-integer? list?)]))
 
 ;; ---------- Requirements
 
-(require rml/notimplemented
-         rml/data
+(require rml/data
+         rml/individual
          math/array)
 
 ;; ---------- Implementation
