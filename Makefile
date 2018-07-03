@@ -1,5 +1,6 @@
 PACKAGENAME=rml-knn
 COLLECTS=rml-knn
+TESTS=$(COLLECTS)/test
 SCRBL=rml-knn/scribblings/rml-knn.scrbl
 
 all: setup
@@ -18,7 +19,7 @@ unlink:
 	raco pkg remove $(PACKAGENAME)
 
 test:
-	raco test -x .
+	raco test $(TESTS)
 
 htmldocs: $(SCRBL)
 	raco scribble \
