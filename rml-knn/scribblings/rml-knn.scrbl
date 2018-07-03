@@ -3,6 +3,7 @@
 @(require racket/sandbox
           scribble/eval
           (for-label rml/data
+                     rml/individual
                      rml/results
                      rml-knn/classify
                      rml-knn/train
