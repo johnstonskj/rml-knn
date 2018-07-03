@@ -12,7 +12,7 @@
          rml-knn/classify)
 
 (define dataset
-  (load-data-set "iris_training_data.csv"
+  (load-data-set (path->string (collection-file-path "test/iris_training_data.csv" "rml-knn"))
                  'csv
                  (list
                    (make-feature "sepal-length" #:index 0)

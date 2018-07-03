@@ -11,7 +11,10 @@
          rml-knn/train)
 
 (define dataset
-  (load-data-set "simple-test.json" 'json (list (make-feature "height") (make-classifier "class"))))
+  (load-data-set
+    (path->string (collection-file-path "test/simple-test.json" "rml-knn"))
+    'json
+    (list (make-feature "height") (make-classifier "class"))))
 
 (test-case
   "partition-and-classify: ensure not-implemented"
