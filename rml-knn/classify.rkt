@@ -23,8 +23,7 @@
 ;; ---------- Requirements
 
 (require rml/data
-         rml/individual
-         math/array)
+         rml/individual)
 
 ;; ---------- Implementation
 

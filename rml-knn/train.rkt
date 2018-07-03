@@ -30,8 +30,7 @@
 
 (require rml/data
          rml/not-implemented
-         rml/results
-         math/array)
+         rml/results)
 
 ;; ---------- Implementation
 
