@@ -13,7 +13,8 @@
 
 (define deps '(
   "base"
-  "rml-core"))
+  "rml-core"
+  "math-lib"))
 (define build-deps '(
   "scribble-lib"
   "racket-doc"
