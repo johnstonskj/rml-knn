@@ -21,7 +21,7 @@
 (test-case
   "cross-train: ensure not-implemented"
   (check-exn exn:fail:not-implemented?
-    (λ () (cross-train dataset 5))))
+    (λ () (cross-train dataset 5 5))))
 
 (test-case
   "standardize: ensure not-implemented"
