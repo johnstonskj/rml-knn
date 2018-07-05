@@ -19,4 +19,5 @@
   "scribble-lib"
   "racket-doc"
   "sandbox-lib"
+  "rackunit-lib"
   "cover-coveralls"))
