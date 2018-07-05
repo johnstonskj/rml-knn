@@ -38,16 +38,16 @@
   (let* ([partitioned (partition-for-test data-set partition-pc '())]
          [training (partition partitioned 'training)]
          [testing (partition partitioned 'testing)])
-    (raise-not-implemented)))
+    (raise-not-implemented 'partition-and-classify)))
 
 (define (cross-train partitioned-data-set p k)
-  (raise-not-implemented))
+  (raise-not-implemented 'cross-train))
 
 ;; ---------- Implementation (Feature Transformation)
 
 (define (standardize data-set features)
   ; z_{ij} = x_{ij}-μ_j / σ_j
-  (raise-not-implemented))
+  (raise-not-implemented 'standardize))
 
 (define (fuzzify data-set features)
-  (raise-not-implemented))
+  (raise-not-implemented 'fuzzify))
