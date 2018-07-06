@@ -11,8 +11,8 @@
          rml/results
          rml-knn/classify)
 
-(define dataset
-  (load-data-set (path->string (collection-file-path "test/iris_training_data.csv" "rml-knn"))
+(define iris-data-set
+  (load-data-set (path->string (collection-file-path "test/iris_training_data.csv" "rml"))
                  'csv
                  (list
                    (make-feature "sepal-length" #:index 0)
@@ -22,7 +22,7 @@
                    (make-classifier "classification" #:index 4))))
 
 (define iris
-  (make-individual #:data-set dataset
+  (make-individual #:data-set iris-data-set
                    "sepal-length" 6.3
                    "sepal-width" 2.5
                    "petal-length" 4.9
@@ -31,7 +31,7 @@
 
 (test-case
   "nearest-k: success results"
-  (let ([results (nearest-k iris dataset 5)])
+  (let ([results (nearest-k iris iris-data-set 5)])
     (check-eq? 5 (length results))
     (check-eq? 118 (second (first results)))
     (check-equal? '("Iris-virginica") (third (first results)))
@@ -40,4 +40,4 @@
 
 (test-case
   "classify: success result"
-  (check-equal? '("Iris-virginica") (classify iris dataset 5)))
+  (check-equal? '("Iris-virginica") (classify iris iris-data-set 5)))
