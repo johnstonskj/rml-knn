@@ -1,9 +1,9 @@
 PACKAGENAME=rml-knn
 COLLECTS=rml-knn
 TESTS=$(COLLECTS)/test
-SCRBL=rml-knn/scribblings/rml-knn.scrbl
+SCRBL=$(COLLECTS)/scribblings/$(PACKAGENAME).scrbl
 
-all: setup
+all: setup test
 
 clean:
 	find . -name compiled -type d | xargs rm -rf
@@ -21,10 +21,13 @@ unlink:
 test:
 	raco test $(TESTS)
 
+coverage:
+	raco cover -b -f coveralls -p $(PACKAGENAME)
+
 htmldocs: $(SCRBL)
 	raco scribble \
 		--html \
-		--dest rml-knn/doc \
+		--dest $(COLLECTS)/doc \
 		--dest-name index \
 		++main-xref-in \
 		--redirect-main http://docs.racket-lang.org/ \
