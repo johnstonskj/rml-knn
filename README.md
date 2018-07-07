@@ -8,16 +8,18 @@
 [![GitHub stars](https://img.shields.io/github/stars/johnstonskj/rml-core.svg)](https://github.com/johnstonskj/rml-core/stargazers)
 ![MIT License](https://img.shields.io/badge/license-MIT-118811.svg)
 
-This module implements a *k*-NN approach for the Racket Machine Learning
-package set. This provides a relatively simple classification approach by
+This package implements a *k*-NN approach for the Racket Machine Learning
+package set, based on an article by 
+[Tony Baker](https://spin.atomicobject.com/2013/05/06/k-nearest-neighbor-racket/). 
+The `classify` module provides a relatively simple classification approach by
 determining the Euclidean distance between an individual and a set of pre-
-classified training data. Training is used to determine the veracity of the
+classified training data. The `train` module is used to determine the veracity of the
 chosen features to correctly classify individuals by building a *confusion
 matrix* from classifying a set of individuals.
 
 Relies on the [rml-core](https://github.com/johnstonskj/rml-core) package.
 
-https://spin.atomicobject.com/2013/05/06/k-nearest-neighbor-racket/
+
 
 # Modules
 
