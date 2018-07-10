@@ -4,6 +4,7 @@
           scribble/eval
           (for-label rml/data
                      rml/individual
+                     rml/classify
                      rml/results
                      rml-knn/classifier
                      racket/contract))
@@ -34,14 +35,15 @@ and @hyperlink["http://www.scholarpedia.org/article/K-nearest_neighbor" "Scholar
 
 This package contains the procedures that implement the @italic{k}-NN classifier
 itself. The classifier function returned from @racket[make-knn-classifier] will
-return a list of classifiers predicted for an individual. alternately, the
-@racket[nearest-k] function will provide the set of closest neighbors that
+in turn provide a list of classifiervalues predicted for an individual. Alternately,
+the @racket[nearest-k] function will provide the set of closest neighbors that
 the @italic{classifier} uses.
 
 @examples[ #:eval example-eval
-(require rml/data rml/individual rml-knn/classify)
+(require rml/data rml/individual rml-knn/classifier)
 (define iris-data
-  (load-data-set "test/iris_training_data.csv"
+  (load-data-set (path->string (collection-file-path
+                                 "test/iris_training_data.csv" "rml"))
                  'csv
                  (list
                    (make-feature "sepal-length" #:index 0)
@@ -58,7 +60,7 @@ the @italic{classifier} uses.
                    "petal-width" 1.5
                    "classification" "Iris-versicolor"))
 (define classify (make-knn-classifier 5))
-(classify an-iris iris-data)
+(classify iris-data an-iris)
 ]
 
 The code block above demonstrates the classifier by constructing an @racket[individual]
@@ -84,7 +86,7 @@ This procedure will return the @racket[k] nearest neighbors to the provided
 }
 
 @;{============================================================================}
-@subsection[]{Preparation and Transformations}
+@subsection[]{Data Transformations}
 
 @defproc[#:kind "transform"
          (fuzzify
