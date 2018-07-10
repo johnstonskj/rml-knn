@@ -99,34 +99,6 @@ classifiers for test data.
 Examples: TBD
 
 @;{============================================================================}
-@subsection[]{Training}
-
-@defproc[#:kind "train"
-         (partition-and-classify
-           [dataset data-set?]
-           [train-percentage (real-in 1.0 50.0)]
-           [k exact-positive-integer?])
-         result-matrix?]{
-This form of training uses the @racket[partition-for-test] procedure to create two
-partitions, a training data partition and a test data partition. It then classifies
-all the individuals in the test partition against the training partition and records
-the results in a @racket[result-matrix]. The result matrix can be inspected to determine
-the accuracy of the classifier.
-}
-
-@defproc[#:kind "train"
-         (cross-train
-           [dataset data-set?]
-           [p exact-positive-integer?]
-           [k exact-positive-integer?])
-         result-matrix?]{
-This form of training uses the @racket[partition-equally] procedure to create
-@racket[p] partitions. Each partition is then classified against all the others and
-the results are collated into a single @racket[result-matrix]. The result matrix
-can be inspected to determine the accuracy of the classifier.
-}
-
-@;{============================================================================}
 @subsection[]{Preparation and Transformations}
 
 @defproc[#:kind "transform"
