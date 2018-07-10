@@ -14,20 +14,29 @@
 (provide
  (contract-out
 
-  [nearest-k
-   (-> individual? data-set? exact-positive-integer? list?)]
+  [make-knn-classifier
+   (-> exact-positive-integer? classifier/c)]
 
-  [classify
-   (-> individual? data-set? exact-positive-integer? list?)]))
+  [nearest-k
+   (-> data-set? individual? exact-positive-integer? list?)]
+
+  [fuzzify
+   (-> data-set? (listof string?) data-set?)]))
 
 ;; ---------- Requirements
 
 (require rml/data
-         rml/individual)
+         rml/classify
+         rml/individual
+         rml/not-implemented)
 
 ;; ---------- Implementation
 
-(define (nearest-k data-item data-set k)
+(define (make-knn-classifier k)
+  (λ (data-set data-item)
+    (reduce (nearest-k data-set data-item k))))
+
+(define (nearest-k data-set data-item k)
   (take
    (sort
     (for/list ([item-index (data-count data-set)])
@@ -35,8 +44,8 @@
     #:key first <)
    k))
 
-(define (classify data-item data-set k)
-  (reduce (nearest-k data-item data-set k)))
+(define (fuzzify data-set features)
+  (raise-not-implemented 'fuzzify))
 
 ;; ---------- Internal procedures
 

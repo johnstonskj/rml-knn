@@ -6,6 +6,6 @@
 ;;
 
 (define collection "rml-knn")
-(define scribblings '(("scribblings/rml-knn.scrbl" (multi-page))))
+(define scribblings '(("scribblings/rml-knn.scrbl" ())))
 
 (define test-omit-paths '("scribblings"))

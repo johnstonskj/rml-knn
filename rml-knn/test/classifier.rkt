@@ -8,8 +8,9 @@
 (require rackunit
          rml/data
          rml/individual
+         rml/not-implemented
          rml/test/data-sets
-         rml-knn/classify)
+         rml-knn/classifier)
 
 (define iris
   (make-individual #:data-set iris-data-set
@@ -21,7 +22,7 @@
 
 (test-case
   "nearest-k: success results"
-  (let ([results (nearest-k iris iris-data-set 5)])
+  (let ([results (nearest-k iris-data-set iris 5)])
     (check-eq? 5 (length results))
     (check-eq? 118 (second (first results)))
     (check-equal? '("Iris-virginica") (third (first results)))
@@ -29,5 +30,11 @@
     (check-equal? '("Iris-versicolor") (third (fourth results)))))
 
 (test-case
-  "classify: success result"
-  (check-equal? '("Iris-virginica") (classify iris iris-data-set 5)))
+  "make-knn-classifier success result"
+  (let ([classify (make-knn-classifier 5)])
+    (check-equal? '("Iris-virginica") (classify iris-data-set iris))))
+
+(test-case
+  "fuzzify: ensure not-implemented"
+  (check-exn exn:fail:not-implemented?
+    (λ () (fuzzify iris-data-set '()))))

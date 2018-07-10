@@ -5,8 +5,7 @@
           (for-label rml/data
                      rml/individual
                      rml/results
-                     rml-knn/classify
-                     rml-knn/train
+                     rml-knn/classifier
                      racket/contract))
 
 @;{============================================================================}
@@ -19,25 +18,25 @@
 @author[(author+email "Simon Johnston" "johnstonskj@gmail.com")]
 
 This package provides an implementation of the @italic{k}-Nearest Neighbors
-algorithm for classification. It provides both a straightforward @racket[classify]
-procedure that takes an individual and returns the set of predicted classifiers
-for that individual.
+algorithm for classification. It provides both a straightforward @italic{classifier}
+function that takes a data set and an individual and returns the set of predicted
+classifier values for that individual.
 
 For more information on the @italic{k}-NN algorithm, see
 @hyperlink["https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm" "Wikipedia"]
 and @hyperlink["http://www.scholarpedia.org/article/K-nearest_neighbor" "Scholar"].
 
-@table-of-contents[]
 
 @;{============================================================================}
 @;{============================================================================}
-@section[]{Package rml-knn/classify}
-@defmodule[rml-knn/classify]
+@section[]{Package rml-knn/classifier}
+@defmodule[rml-knn/classifier]
 
 This package contains the procedures that implement the @italic{k}-NN classifier
-itself. The @racket[classify] will return a list of classifiers predicted for
-an individual, the @racket[nearest-k] procedure will provide the set of closest
-neighbors that @racket[classify] uses.
+itself. The classifier function returned from @racket[make-knn-classifier] will
+return a list of classifiers predicted for an individual. alternately, the
+@racket[nearest-k] function will provide the set of closest neighbors that
+the @italic{classifier} uses.
 
 @examples[ #:eval example-eval
 (require rml/data rml/individual rml-knn/classify)
@@ -58,7 +57,8 @@ neighbors that @racket[classify] uses.
                    "petal-length" 4.9
                    "petal-width" 1.5
                    "classification" "Iris-versicolor"))
-(classify an-iris iris-data 5)
+(define classify (make-knn-classifier 5))
+(classify an-iris iris-data)
 ]
 
 The code block above demonstrates the classifier by constructing an @racket[individual]
@@ -66,20 +66,17 @@ and classifying it against the loaded @racket[data-set]. Note that in this examp
 classifier returned @italic{Iris-virginica}, whereas the individual was labeled as
 @italic{Iris-versicolor}.
 
-@defproc[#:kind "classify"
-         (classify
-           [individual individual?]
-           [dataset data-set?]
+@defproc[(make-knn-classifier
            [k exact-positive-integer?])
-         list?]{
-This procedure will return a list of classifier values predicted for the provided
-@racket[individual] based on the @racket[k] nearest neighbors in @racket[dataset].
+         classifier/c]{
+This procedure will produce a classifier function that conforms to the @racket[classifier/c]
+contract. The resulting function returns a list of classifier values predicted for the
+provided @racket[individual] based on the @racket[k]-nearest neighbors in @racket[dataset].
 }
 
-@defproc[#:kind "classify"
-         (nearest-k
-           [individual individual?]
+@defproc[(nearest-k
            [dataset data-set?]
+           [individual individual?]
            [k exact-positive-integer?])
          list?]{
 This procedure will return the @racket[k] nearest neighbors to the provided
@@ -87,38 +84,7 @@ This procedure will return the @racket[k] nearest neighbors to the provided
 }
 
 @;{============================================================================}
-@;{============================================================================}
-@section[]{Package rml-knn/train}
-@defmodule[rml-knn/train]
-
-While the @italic{k}-NN method does not necessarily learn, and therefore require
-explicit training, it is useful to be able to perform specific testing and training
-operations to validate the effectiveness of features in predicting the correctly
-classifiers for test data.
-
-Examples: TBD
-
-@;{============================================================================}
 @subsection[]{Preparation and Transformations}
-
-@defproc[#:kind "transform"
-         (standardize
-           [features (listof string?)])
-         data-set?]{
-Standardization requires statistics be computed for all features listed in
-@racket[features], and will normalize the values to reduce the effect of large
-outlyer values and enable more efficient distance measures.
-
-From @hyperlink["http://www.scholarpedia.org/article/K-nearest_neighbor" "Scholarpedia"]}:
-
-@italic{… removes scale effects caused by use of features with different measurement
-scales. For example, if one feature is based on patient weight in units of kg and
-another feature is based on blood protein values in units of ng/dL in the range
-[-3,3], then patient weight will have a much greater influence on the distance
-between samples and may bias the performance of the classifier. Standardization
-transforms raw feature values into z-scores using the mean and standard deviation
-of a feature values over all input samples}
-}
 
 @defproc[#:kind "transform"
          (fuzzify
