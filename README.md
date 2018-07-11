@@ -11,37 +11,41 @@
 This package implements a *k*-NN approach for the Racket Machine Learning
 package set, based on an article by 
 [Tony Baker](https://spin.atomicobject.com/2013/05/06/k-nearest-neighbor-racket/). 
-The `classify` module provides a relatively simple classification approach by
+The `classifier` module provides a relatively simple classification approach by
 determining the Euclidean distance between an individual and a set of pre-
-classified training data. The `train` module is used to determine the veracity of the
-chosen features to correctly classify individuals by building a *confusion
-matrix* from classifying a set of individuals.
-
-Relies on the [rml-core](https://github.com/johnstonskj/rml-core) package.
+classified training data. This package relies on the 
+[rml-core](https://github.com/johnstonskj/rml-core) package and provides a
+*classifier* for use with the `rml/classify` module.
 
 
 
 # Modules
 
-* `classify` - Support for classifying an individual against a trained data set.
-* `train` - Support for training a data set.
+* `classifier` - Support for classifying an individual against a trained data set.
 
 # Examples
 
 ```scheme
-(require rml/results "../classify.rkt")
+(require rml/data
+         rml/individual
+         rml/results 
+         rml-knn/classifier)
 
-(define iris (hash "sepal-length" 6.3
-                   "sepal-width" 2.5
-                   "petal-length" 4.9
-                   "petal-width" 1.5
-                   "classification" "Iris-versicolor"))
+; construct dataset ...
+
+(define iris (make-individual "sepal-length" 6.3
+                              "sepal-width" 2.5
+                              "petal-length" 4.9
+                              "petal-width" 1.5
+                              "classification" "Iris-versicolor"))
 
 (define C (make-result-matrix dataset))
 
 (record-result C
   (hash-ref iris "classification")
-  (first (classify iris dataset 5)))
+  (first ((make-knn-classifier 5) dataset iris)))
 ```
 
-TBD
+The function `make-knn-classifier` returns the classification function 
+itself, this conforms to the `classifier/c` contract from the `rml/classify` 
+module.
