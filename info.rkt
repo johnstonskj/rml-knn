@@ -14,10 +14,10 @@
 (define deps '(
   "base"
   "rml-core"
-  "math-lib"))
+  "math-lib"
+  "rackunit-lib"))
 (define build-deps '(
   "scribble-lib"
   "racket-doc"
   "sandbox-lib"
-  "rackunit-lib"
   "cover-coveralls"))
