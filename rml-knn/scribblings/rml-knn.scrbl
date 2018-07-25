@@ -23,6 +23,10 @@ algorithm for classification. It provides both a straightforward @italic{classif
 function that takes a data set and an individual and returns the set of predicted
 classifier values for that individual.
 
+The classifier function provided by this module can be used by the higher-order
+classification functions @racket[classify], @racket[cross-classify], and
+@racket[partitioned-test-classify] provided by the package @racket[rml-core].
+
 For more information on the @italic{k}-NN algorithm, see
 @hyperlink["https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm" "Wikipedia"]
 and @hyperlink["http://www.scholarpedia.org/article/K-nearest_neighbor" "Scholar"].
@@ -30,7 +34,7 @@ and @hyperlink["http://www.scholarpedia.org/article/K-nearest_neighbor" "Scholar
 
 @;{============================================================================}
 @;{============================================================================}
-@section[]{Package rml-knn/classifier}
+@section[]{Module rml-knn/classifier}
 @defmodule[rml-knn/classifier]
 
 This package contains the procedures that implement the @italic{k}-NN classifier
@@ -60,7 +64,7 @@ the @italic{classifier} uses.
                    "petal-width" 1.5
                    "classification" "Iris-versicolor"))
 (define classify (make-knn-classifier 5))
-(classify iris-data an-iris)
+(classify iris-data default-partition an-iris)
 ]
 
 The code block above demonstrates the classifier by constructing an @racket[individual]
@@ -68,8 +72,9 @@ and classifying it against the loaded @racket[data-set]. Note that in this examp
 classifier returned @italic{Iris-virginica}, whereas the individual was labeled as
 @italic{Iris-versicolor}.
 
-@defproc[(make-knn-classifier
-           [k exact-positive-integer?])
+@defproc[#:kind "constructor"
+         (make-knn-classifier
+          [k exact-positive-integer?])
          classifier/c]{
 This procedure will produce a classifier function that conforms to the @racket[classifier/c]
 contract. The resulting function returns a list of classifier values predicted for the
@@ -77,9 +82,10 @@ provided @racket[individual] based on the @racket[k]-nearest neighbors in @racke
 }
 
 @defproc[(nearest-k
-           [dataset data-set?]
-           [individual individual?]
-           [k exact-positive-integer?])
+          [dataset data-set?]
+          [partition exact-nonnegative-integer?]
+          [individual individual?]
+          [k exact-positive-integer?])
          list?]{
 This procedure will return the @racket[k] nearest neighbors to the provided
 @racket[individual] in @racket[dataset].
@@ -90,7 +96,7 @@ This procedure will return the @racket[k] nearest neighbors to the provided
 
 @defproc[#:kind "transform"
          (fuzzify
-           [features (listof string?)])
+          [features (listof string?)])
          data-set?]{
 Attempts to improve the accuracy of classification by mapping values into membership
 sets. This is sometimes known as Fuzzy @italic{k}-Nearest Neighbors, or F@italic{k}NN

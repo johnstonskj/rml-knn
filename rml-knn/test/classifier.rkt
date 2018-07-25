@@ -19,20 +19,27 @@
                    "petal-length" 4.9
                    "petal-width" 1.5
                    "classification" "Iris-versicolor"))
+(define test-k 5)
 
 (test-case
   "nearest-k: success results"
-  (let ([results (nearest-k iris-data-set iris 5)])
-    (check-eq? 5 (length results))
-    (check-eq? 118 (second (first results)))
-    (check-equal? '("Iris-virginica") (third (first results)))
-    (check-eq? 74 (second (fourth results)))
-    (check-equal? '("Iris-versicolor") (third (fourth results)))))
+  (let ([results (nearest-k iris-data-set default-partition iris test-k)])
+    (check-eq? test-k (length results))
+    (check-eq? (second (first results)) 118)
+    (check-equal? (third (first results)) '("Iris-virginica"))
+    (check-eq? (second (fourth results)) 74)
+    (check-equal? (third (fourth results)) '("Iris-versicolor"))))
 
 (test-case
   "make-knn-classifier success result"
-  (let ([classify (make-knn-classifier 5)])
-    (check-equal? '("Iris-virginica") (classify iris-data-set iris))))
+  (let ([classify (make-knn-classifier test-k)])
+    (check-equal? '("Iris-virginica") (classify iris-data-set default-partition iris))))
+
+(test-case
+  "make-knn-classifier check contract"
+  (let ([classify (make-knn-classifier test-k)])
+    (check-exn exn:fail:contract?
+      (λ () (classify iris iris-data-set)))))
 
 (test-case
   "fuzzify: ensure not-implemented"

@@ -18,7 +18,7 @@
    (-> exact-positive-integer? classifier/c)]
 
   [nearest-k
-   (-> data-set? individual? exact-positive-integer? list?)]
+   (-> data-set? exact-nonnegative-integer? individual? exact-positive-integer? list?)]
 
   [fuzzify
    (-> data-set? (listof string?) data-set?)]))
@@ -33,14 +33,14 @@
 ;; ---------- Implementation
 
 (define (make-knn-classifier k)
-  (λ (data-set data-item)
-    (reduce (nearest-k data-set data-item k))))
+  (λ (data-set against-partition data-item)
+    (reduce (nearest-k data-set against-partition data-item k))))
 
-(define (nearest-k data-set data-item k)
+(define (nearest-k data-set against-partition data-item k)
   (take
    (sort
     (for/list ([item-index (data-count data-set)])
-      (classify-distance data-item data-set 'default item-index))
+      (classify-distance data-item data-set against-partition item-index))
     #:key first <)
    k))
 
@@ -49,16 +49,16 @@
 
 ;; ---------- Internal procedures
 
-(define (classify-distance sample data-set partition-index value-index)
+(define (classify-distance sample data-set against-partition value-index)
   (list
    (sqrt
     (apply +
            (for/list ([feature (features data-set)])
-             (let ([fvector (feature-vector data-set partition-index feature)])
+             (let ([fvector (feature-vector data-set against-partition feature)])
                (expt (- (hash-ref sample feature) (vector-ref fvector value-index)) 2)))))
    value-index
    (for/list ([classifier (classifiers data-set)])
-     (let ([cvector (feature-vector data-set partition-index classifier)])
+     (let ([cvector (feature-vector data-set against-partition classifier)])
        (vector-ref cvector value-index)))))
 
 (define (reduce results)
