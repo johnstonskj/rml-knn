@@ -15,7 +15,7 @@
                       '(require rml/data rml/individual rml/results rml/not-implemented)))
 
 @;{============================================================================}
-@title[#:tag "ml" #:version "1.0"]{Racket Machine Learning - K-Nearest Neighbors}
+@title[#:tag "ml" #:version "1.0"]{Racket Machine Learning --- K-Nearest Neighbors}
 @author[(author+email "Simon Johnston" "johnstonskj@gmail.com")]
 
 This package provides an implementation of the @italic{k}-Nearest Neighbors
