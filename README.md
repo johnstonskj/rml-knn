@@ -49,3 +49,5 @@ classified training data. This package relies on the
 The function `make-knn-classifier` returns the classification function 
 itself, this conforms to the `classifier/c` contract from the `rml/classify` 
 module.
+
+[![Racket Langaueg](https://racket-lang.org/logo-and-text-1-2.png)](https://racket-lang.org/)
