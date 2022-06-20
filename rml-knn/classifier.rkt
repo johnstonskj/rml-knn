@@ -52,10 +52,9 @@
 (define (classify-distance sample data-set against-partition value-index)
   (list
    (sqrt
-    (apply +
-           (for/list ([feature (features data-set)])
-             (let ([fvector (feature-vector data-set against-partition feature)])
-               (expt (- (hash-ref sample feature) (vector-ref fvector value-index)) 2)))))
+    (for/sum ([feature (features data-set)])
+      (let ([fvector (feature-vector data-set against-partition feature)])
+        (expt (- (hash-ref sample feature) (vector-ref fvector value-index)) 2))))
    value-index
    (for/list ([classifier (classifiers data-set)])
      (let ([cvector (feature-vector data-set against-partition classifier)])
