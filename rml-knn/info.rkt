@@ -6,6 +6,6 @@
 ;;
 
 (define collection "rml-knn")
-(define scribblings '(("scribblings/rml-knn.scrbl" ())))
+(define scribblings '(("scribblings/rml-knn.scrbl" () ("Machine Learning"))))
 
 (define test-omit-paths '("scribblings"))
